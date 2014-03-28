@@ -11,6 +11,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.ShareActionProvider;
 import android.view.Menu;
 import android.view.MenuItem;
+        import android.view.View;
+        import android.widget.Button;
 
 public class Details extends ActionBarActivity {
 
@@ -22,11 +24,22 @@ public class Details extends ActionBarActivity {
         //Displaying the title of the action Bar as "Books"
         android.app.ActionBar actionBar = getActionBar();
         actionBar.setTitle("Details");
-
-
-        // Enabling Up / Back navigation
+         // Enabling Up / Back navigation
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+
+        //Instansiating the button to set its onClick listner
+        final Button checkout = (Button)findViewById(R.id.button_checkout);
+        checkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(view.getId() == R.id.button_checkout)
+                {
+                    checkout.setText("DAny");
+                }
+
+            }
+        });
 
 
 
@@ -59,12 +72,9 @@ public class Details extends ActionBarActivity {
         int id = item.getItemId();
 
         switch(id){
-            /*
-            case R.id.action_add :  dan.setText("Add Button Pressed");
-                                    return true;
-            case R.id.action_seed:  dan.setText("Seed Button Pressed");
-                                    return true;
-                                    */
+
+            case R.id.button_checkout : return true;
+
             default             :  return super.onOptionsItemSelected(item);
         }
 

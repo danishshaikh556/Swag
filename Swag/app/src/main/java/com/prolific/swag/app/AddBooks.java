@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 /**
  * Created by Danish556 on 3/27/14.
@@ -22,10 +24,24 @@ public class AddBooks extends ActionBarActivity {
         //Displaying the title of the action Bar as "Books"
         android.app.ActionBar actionBar = getActionBar();
         actionBar.setTitle("Add Data");
-
-
         // Enabling Up / Back navigation
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        //Instansiating the button to set its onClick listner
+        final Button submit = (Button)findViewById(R.id.submit);
+               submit.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View view) {
+                       if(view.getId() == R.id.submit)
+                       {
+                           submit.setText("DAny");
+                       }
+
+                   }
+               });
+
+
+
 
 
 
@@ -57,12 +73,12 @@ public class AddBooks extends ActionBarActivity {
 
             case R.id.action_done :  finish();
                                     return true;
-
-
-            default             :  return super.onOptionsItemSelected(item);
+              default             :  return super.onOptionsItemSelected(item);
         }
 
     }
+
+
 
 
 
