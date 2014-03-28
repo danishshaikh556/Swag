@@ -65,7 +65,10 @@ public class Books extends ListActivity implements AdapterView.OnItemClickListen
         switch(id){
             case R.id.action_add :  LocationFound();
                                     return true;
-            case R.id.action_seed:   return true;
+            case R.id.action_seed:
+                Intent i = new Intent(this, Details.class);
+                startActivity(i);
+                return true;
             default              :  return super.onOptionsItemSelected(item);
         }
     }
