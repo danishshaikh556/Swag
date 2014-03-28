@@ -1,9 +1,13 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:yourapp="http://schemas.android.com/apk/res-auto" >
+     <!-- Line 2 is nexessary because the atributes do not exist on android frameworks of older devices-->
+
 
     <!-- Share -->
-    <item android:id="@+id/action_share"
-        android:icon="@drawable/ic_action_share"
-        android:title="Share"
-        android:showAsAction="ifRoom"/>
+    <item android:id               ="@+id/action_share"
+        android:icon               ="@drawable/ic_action_share"
+        android:title              ="Share"
+        yourapp:showAsAction       ="ifRoom"
+        yourapp:actionProviderClass="android.support.v7.widget.ShareActionProvider"/>
 
 </menu>

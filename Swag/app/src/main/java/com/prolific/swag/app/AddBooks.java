@@ -1,40 +1,52 @@
 package com.prolific.swag.app;
-import android.content.Intent;
+
+
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
-public class Books extends ActionBarActivity {
-    private TextView dan ;
+/**
+ * Created by Danish556 on 3/27/14.
+ */
+
+
+
+
+public class AddBooks extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_books);
+        setContentView(R.layout.activity_addbooks);
 
         //Displaying the title of the action Bar as "Books"
         android.app.ActionBar actionBar = getActionBar();
-        actionBar.setTitle("Books");
+        actionBar.setTitle("Add Data");
+
+
+        // Enabling Up / Back navigation
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
 
 
-        dan =(TextView)findViewById(R.id.Dan);
-        dan.setText("Hello");
 
 
     }
+
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.books, menu);
-        return true;
+        getMenuInflater().inflate(R.menu.addbooks, menu);
+
+         return true;
     }
 
+
     @Override
+
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -42,16 +54,16 @@ public class Books extends ActionBarActivity {
         int id = item.getItemId();
 
         switch(id){
-            case R.id.action_add :  dan.setText("Add Button Pressed");
-                                    LocationFound();
+
+            case R.id.action_done :  finish();
                                     return true;
-            case R.id.action_seed:  dan.setText("Seed Button Pressed");
-                                     return true;
-            default              :  return super.onOptionsItemSelected(item);
+
+
+            default             :  return super.onOptionsItemSelected(item);
         }
+
     }
-    private void LocationFound() {
-        Intent i = new Intent(this, AddBooks.class);
-        startActivity(i);
-    }
+
+
+
 }

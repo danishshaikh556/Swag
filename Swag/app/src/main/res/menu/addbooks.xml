@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:yourapps="http://schemas.android.com/apk/res-auto" >
+    <!-- Line 2 is nexessary because the atributes do not exist on android frameworks of older devices-->
+
+
+    <!-- Done -->
+    <item android:id         ="@+id/action_done"
+        android:title        ="Done"
+        yourapps:showAsAction ="always"/>
+
+</menu>
