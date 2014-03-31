@@ -5,11 +5,12 @@ package com.prolific.swag.app;
  */
 public class BookObject {
 
-    public BookObject(String author,String title,String publisher,String lastCheckedOutBy,String categories,String url,String id)
+    public BookObject(String author,String title,String publisher,String lastCheckedOut,String lastCheckedOutBy,String categories,String url,String id)
     {
         this.author             = author;
         this.categories         = categories;
         this.lastCheckedOutBy   = lastCheckedOutBy;
+        this.lastCheckedOut     = lastCheckedOut;
         this.publisher          = publisher;
         this.title              = title;
         this.url                = url;
@@ -46,10 +47,9 @@ public class BookObject {
         this.categories = categories;
     }
 
-
-    public String getUrl() {
-        return url;
-    }
+    public void setLastCheckedOut(String lastCheckedOut){this.lastCheckedOut = lastCheckedOut;}
+    public String getLastCheckedOut(){return lastCheckedOut;}
+    public String getUrl() {return url;}
     public void setUrl(String url) {
         this.url = url;
     }
@@ -64,6 +64,7 @@ public class BookObject {
                    author,
                    publisher,
                    lastCheckedOutBy,
+                   lastCheckedOut,
                    categories,
                    url,
                    id;

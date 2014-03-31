@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -30,6 +31,21 @@ public class Details extends ActionBarActivity {
         actionBar.setTitle("Details");
          // Enabling Up / Back navigation
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        ///Getting Extras from Intent passed in the previous activity
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+              title              =  extras.getString("title");
+              author             =  extras.getString("author");
+              publisher          = extras.getString("publisher");
+              lastCheckedOutBy   = extras.getString("lastCheckedOutBy");
+              lastCheckedOut     = extras.getString("lastCheckedOut");
+              categories         = extras.getString("categories");
+              id                 = extras.getString("id");
+              url                = extras.getString("url");
+        }
+
+        layoutDisplay();
 
 
         //Instansiating the button CHECKOUT to set its onClick listner
@@ -56,15 +72,31 @@ public class Details extends ActionBarActivity {
 
             }
         });
-
-
-
-
-
-
-
-
     }
+
+
+
+     //Displays the screen Layout
+        public void layoutDisplay()
+    {
+        TextView bookTitleDisp            = (TextView)findViewById(R.id.book_title);
+                 bookTitleDisp.setText(title + id);
+        TextView bookAuthorDisp           = (TextView)findViewById(R.id.book_author);
+                 bookAuthorDisp.setText(author + url);
+        TextView bookLastChekbyDisp       = (TextView)findViewById(R.id.book_checkout);
+                 bookLastChekbyDisp.setText(lastCheckedOut);
+        TextView bookLAstCheckDetailDisp  = (TextView)findViewById(R.id.book_checkout_details);
+                 bookLAstCheckDetailDisp.setText(lastCheckedOutBy);
+        TextView bookPublisherDisp        = (TextView)findViewById(R.id.book_publisher);
+                 bookPublisherDisp.setText(publisher);
+        TextView bookTagsDisp             = (TextView)findViewById(R.id.book_tags);
+                 bookTagsDisp.setText(categories);
+    }
+
+
+
+
+
 
 
 
@@ -102,5 +134,13 @@ public class Details extends ActionBarActivity {
     }
 
     private ShareActionProvider sharingAction;
+    private String              title,
+                                author,
+                                publisher,
+                                lastCheckedOut,
+                                lastCheckedOutBy,
+                                categories,
+                                id,
+                                url;
 }
 

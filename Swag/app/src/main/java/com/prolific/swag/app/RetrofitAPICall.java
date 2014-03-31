@@ -114,16 +114,17 @@ interface DeleteInterface{
         for(int i =0;i< booksArray.length();i++)
         {
 
-            JSONObject temp       = new JSONObject(booksArray.get(i).toString());
-            String title          = temp.get("title").toString() ;
-            String author         = temp.get("author").toString();
-            String categories     = temp.get("categories").toString();
-            String lastCheckedOut = temp.get("lastCheckedOutBy").toString();
+            JSONObject temp          = new JSONObject(booksArray.get(i).toString());
+            String title             = temp.get("title").toString() ;
+            String author            = temp.get("author").toString();
+            String categories        = temp.get("categories").toString();
+            String lastCheckedOutby  = temp.get("lastCheckedOutBy").toString();
+            String lastCheckedOut    = temp.get("lastCheckedOut").toString();
             String publisher      = temp.get("publisher").toString();
             String urls           = temp.get("url").toString();
             String id             = temp.get("id").toString();
 
-            BookObject tempBook   = new BookObject(author,title,publisher,lastCheckedOut,categories,urls,id);
+            BookObject tempBook   = new BookObject(author,title,publisher,lastCheckedOut,lastCheckedOutby,categories,urls,id);
             AllBooks.put(tempBook.getId(), tempBook);
         }
 

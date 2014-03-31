@@ -72,9 +72,7 @@ public class Books extends ListActivity implements AdapterView.OnItemClickListen
             case R.id.action_add :  Intent i = new Intent(this, AddBooks.class);
                                     startActivity(i);
                                     return true;
-            case R.id.action_seed:  Intent j = new Intent(this, Details.class);
-                                    startActivity(j);
-                                    return true;
+            case R.id.action_seed:  return true;
             default              :  return super.onOptionsItemSelected(item);
         }
     }
@@ -84,17 +82,41 @@ public class Books extends ListActivity implements AdapterView.OnItemClickListen
 
     /* display a Toast with message text. */
     private void showMessage(CharSequence text) {
+
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
+
     }
 
     /* this method is fired when an item is clicked */
     public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
         TextView item = (TextView)v;
-        showMessage(item.getText());
-    }
+        fireIntent(item.getText().toString());
+
+        }
+
+    //Fires Details activity
+    private void fireIntent(String id)
+    {
+        if(AllBooks.containsKey(id))
+        {
+            Intent j = new Intent(this, Details.class);
+            //Passing Data To display
+            BookObject temp = AllBooks.get(id);
+            j.putExtra("title",temp.getTitle());
+            j.putExtra("author",temp.getAuthor());
+            j.putExtra("publisher",temp.getPublisher());
+            j.putExtra("lastCheckedOutBy",temp.getLastCheckedOutBy());
+            j.putExtra("categories",temp.getCategories());
+            j.putExtra("id",temp.getId());
+            j.putExtra("lastCheckedOut",temp.getLastCheckedOut());
+            j.putExtra("url",temp.getUrl());
+            startActivity(j);
+        }
+
+        }
 
      ///Server INteraction
      //All tasks are async
@@ -150,7 +172,7 @@ public class Books extends ListActivity implements AdapterView.OnItemClickListen
 
 
 
-    public HashMap<String,BookObject> AllBooks ;
+    public HashMap<String,BookObject> AllBooks = new HashMap<String, BookObject>();
     public String[]          toPass            ;
 
 
