@@ -28,22 +28,22 @@ public class AdapterClass extends ArrayAdapter<ListDispRow> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-// 1. Create inflater
+         //  Create inflater
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-// 2. Get rowView from inflater
+        // Get rowView from inflater
         View rowView = inflater.inflate(R.layout.row, parent, false);
         rowView.setId(itemsArrayList.get(position).getList_Disp_id_Row());
-// 3. Get the two text view from the rowView
+       // Get the two text view from the rowView
         TextView labelView = (TextView) rowView.findViewById(R.id.label);
         TextView valueView = (TextView) rowView.findViewById(R.id.value);
 
-// 4. Set the text for textView
+        // Set the text for textView
         labelView.setText(itemsArrayList.get(position).getList_Disp_Tile_Row());
         valueView.setText(itemsArrayList.get(position).getList_Disp_Author_Row());
 
-// 5. retrn rowView
+        // retrn rowView
         return rowView;
     }
 }
