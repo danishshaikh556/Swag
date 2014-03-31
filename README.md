@@ -1,6 +1,6 @@
 Swag
 ====
 
-Prolific Team Project
+Prolific Interactive Team Android Project 
 
 
