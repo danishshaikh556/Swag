@@ -13,16 +13,23 @@ import retrofit.client.Response;
 import retrofit.http.DELETE;
 import retrofit.http.GET;
 import retrofit.http.Path;
-
+//Note this is a Singleton Design
 /**
  * Created by Danish556 on 3/30/14.
  */
+
+
+//Note This Class follows a SingleTon Design Pattern
 public class RetrofitAPICall{
 
 private static final String API_URL =    "http://interview-danish.herokuapp.com";
+//Making a SIngle Instance
+private static RetrofitAPICall instance =new RetrofitAPICall();
 
+//Make Constructor Private
+private RetrofitAPICall(){}
 
-
+ public  static  RetrofitAPICall getInstance(){return instance;}
 //Interface for GETRequests
 interface GETInterface {
     @GET("/{book_URL}/{book_no_URL}")

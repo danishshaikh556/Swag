@@ -1,12 +1,16 @@
 package com.prolific.swag.app;
 
 
+import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * Created by Danish556 on 3/27/14.
@@ -34,30 +38,20 @@ public class AddBooks extends ActionBarActivity {
                    public void onClick(View view) {
                        if(view.getId() == R.id.submit)
                        {
-                           submit.setText("DAny");
+                           ServerCalls PostToServer =new ServerCalls();
+                                       PostToServer.execute("","","");
                        }
 
                    }
                });
-
-
-
-
-
-
-
-
-    }
-
-
-
+   }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.addbooks, menu);
 
-         return true;
+        return true;
     }
 
 
@@ -72,11 +66,58 @@ public class AddBooks extends ActionBarActivity {
         switch(id){
 
             case R.id.action_done :  finish();
-                                    return true;
-              default             :  return super.onOptionsItemSelected(item);
+                                     return true;
+            default               :  return super.onOptionsItemSelected(item);
         }
 
     }
+
+    public BookObject getPostRequestBody()
+    {
+        BookObject temp           =   new BookObject();
+        EditText title_add        =  (EditText)findViewById(R.id.addbookTitle);
+                                      temp.setTitle(title_add.getText().toString());
+        EditText author_add       =  (EditText)findViewById(R.id.addauthor);
+                                      temp.setAuthor(author_add.getText().toString());
+        EditText publisher_add    =  (EditText)findViewById(R.id.addpublisher);
+                                      temp.setPublisher(publisher_add.getText().toString());
+        EditText tags_add         =  (EditText)findViewById(R.id.addcategories);
+                                      temp.setCategories(tags_add.getText().toString());
+        return temp;
+
+    }
+
+    //Daisplays Toast
+    public void makeToast(String toast){
+    //Show user Confirmation
+        Context context = getApplicationContext();
+        Toast.makeText(context,"Book Made:-"+ toast , Toast.LENGTH_SHORT).show();
+ }
+
+    ///Server INteraction
+    //All tasks are async
+    private class ServerCalls extends AsyncTask<String, String, String> {
+
+        @Override
+        protected String doInBackground(String... params)  {
+
+            //Get Instance of call
+            RetrofitAPICall toPost        = RetrofitAPICall.getInstance();
+
+            //Get Format of Book To Post
+            BookObject bookToPostToServer = getPostRequestBody();
+
+            //Make a POST RequestTo the server
+
+
+
+            return bookToPostToServer.toString();
+        }
+
+        @Override
+        protected void onPostExecute(String result) {makeToast(result);finish();}
+    }
+
 
 
 

@@ -8,25 +8,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Book Title"
-        android:id="@+id/bookTitle"
+        android:id="@+id/addbookTitle"
         android:inputType="text"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Author"
-        android:id="@+id/author"
+        android:id="@+id/addauthor"
         android:inputType="text"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Publisher"
-        android:id="@+id/publisher"
+        android:id="@+id/addpublisher"
         android:inputType="text"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Categories"
-        android:id="@+id/categories"
+        android:id="@+id/addcategories"
         android:inputType="text"/>
 
     <Button

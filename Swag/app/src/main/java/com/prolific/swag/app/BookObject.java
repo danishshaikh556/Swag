@@ -5,6 +5,7 @@ package com.prolific.swag.app;
  */
 public class BookObject {
 
+    public BookObject(){}
     public BookObject(String author,String title,String publisher,String lastCheckedOut,String lastCheckedOutBy,String categories,String url,String id)
     {
         this.author             = author;
@@ -16,6 +17,20 @@ public class BookObject {
         this.url                = url;
         this.id                 = id;
     }
+
+    //BookObject To String Method
+    public String toString()
+    {
+     String toReturn = "Title                 :"  + title +
+                       "Author                :"  + author+
+                       "LastCheckedDetails    :"  + lastCheckedOut +lastCheckedOut +
+                       "Publisher             :"  + publisher +
+                       "Categories            :"  + categories +
+                       "url                   :"  + url +
+                       "id                    :"  +id;
+        return toReturn;
+    }
+    //Setters and Getters
     public String getTitle() {
         return title;
     }
@@ -46,7 +61,6 @@ public class BookObject {
     public void setCategories(String categories) {
         this.categories = categories;
     }
-
     public void setLastCheckedOut(String lastCheckedOut){this.lastCheckedOut = lastCheckedOut;}
     public String getLastCheckedOut(){return lastCheckedOut;}
     public String getUrl() {return url;}
@@ -60,13 +74,13 @@ public class BookObject {
         this.id = id;
     }
 
-    private String title,
-                   author,
-                   publisher,
-                   lastCheckedOutBy,
-                   lastCheckedOut,
-                   categories,
-                   url,
-                   id;
+    private String title            =  "";
+    private String author           =  "";
+    private String publisher        =  "";
+    private String lastCheckedOutBy =  "";
+    private String lastCheckedOut   =  "";
+    private String categories       =  "";
+    private String url              =  "";
+    private String id               =  "";
 
 }

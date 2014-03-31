@@ -34,24 +34,7 @@ public class Books extends ListActivity implements AdapterView.OnItemClickListen
 
   }
 
-    //Called by doInBackGround()
-   public void fillListView()
-   {
-       // add a ListView to fill the entire screen of the
-       // ListActivity, and pass into it an ArrayAdapter
-       // that manages the array of list items.
-       // Can also pass it an android-created list item:
-       //   android.R.layout.simple_list_item_1
 
-       setListAdapter(new ArrayAdapter<String>(this, R.layout.activity_books, toPass));
-       // obtain the ListView that was created by setListAdapter()
-       ListView myList = getListView();
-       // allow us to filter the list with keypresses
-       myList.setTextFilterEnabled(true);
-      // implement an onClick listener for when a user taps a color
-       myList.setOnItemClickListener(this);
-
-   }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -76,26 +59,12 @@ public class Books extends ListActivity implements AdapterView.OnItemClickListen
             default              :  return super.onOptionsItemSelected(item);
         }
     }
-
-
-
-
-    /* display a Toast with message text. */
-    private void showMessage(CharSequence text) {
-
-        Context context = getApplicationContext();
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
-
-    }
-
     /* this method is fired when an item is clicked */
     public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
         TextView item = (TextView)v;
         fireIntent(item.getText().toString());
 
-        }
+    }
 
     //Fires Details activity
     private void fireIntent(String id)
@@ -116,7 +85,40 @@ public class Books extends ListActivity implements AdapterView.OnItemClickListen
             startActivity(j);
         }
 
-        }
+    }
+
+    //Called by doInBackGround()
+    public void fillListView()
+    {
+        // add a ListView to fill the entire screen of the
+        // ListActivity, and pass into it an ArrayAdapter
+        // that manages the array of list items.
+        // Can also pass it an android-created list item:
+        //   android.R.layout.simple_list_item_1
+
+        setListAdapter(new ArrayAdapter<String>(this, R.layout.activity_books, toPass));
+        // obtain the ListView that was created by setListAdapter()
+        ListView myList = getListView();
+        // allow us to filter the list with keypresses
+        myList.setTextFilterEnabled(true);
+        // implement an onClick listener for when a user taps a color
+        myList.setOnItemClickListener(this);
+
+    }
+
+    /* display a Toast with message text. When Item in the LIst view is clicked*/
+    private void showMessage(CharSequence text) {
+
+        Context context = getApplicationContext();
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+
+    }
+
+
+
+
 
      ///Server INteraction
      //All tasks are async
@@ -125,7 +127,7 @@ public class Books extends ListActivity implements AdapterView.OnItemClickListen
 
         public void  doGet() throws Exception, JSONException {
 
-            RetrofitAPICall getCall  = new RetrofitAPICall();
+            RetrofitAPICall getCall  = RetrofitAPICall.getInstance();
                             AllBooks =  getCall.getFromServerAllBooks();
 
             //Compatible for ListView
@@ -160,13 +162,8 @@ public class Books extends ListActivity implements AdapterView.OnItemClickListen
         protected void onPostExecute(String result) {
                 fillListView();
           }
-        @Override
-        protected void onPreExecute() {}
-        @Override
-        protected void onProgressUpdate(String... text) {}
 
-
-    }
+     }
 
 
 
