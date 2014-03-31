@@ -39,14 +39,14 @@ public class Details extends ActionBarActivity {
         ///Getting Extras from Intent passed in the previous activity
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-              title              =  extras.getString("title");
-              author             =  extras.getString("author");
-              publisher          = extras.getString("publisher");
-              lastCheckedOutBy   = extras.getString("lastCheckedOutBy");
-              lastCheckedOut     = extras.getString("lastCheckedOut");
-              categories         = extras.getString("categories");
-              id                 = extras.getString("id");
-              url                = extras.getString("url");
+              book_details.setTitle(extras.getString("title"));
+              book_details.setAuthor(extras.getString("author"));
+              book_details.setPublisher(extras.getString("publisher"));
+              book_details.setLastCheckedOutBy(extras.getString("lastCheckedOutBy"));
+              book_details.setLastCheckedOut(extras.getString("lastCheckedOut"));
+              book_details.setCategories(extras.getString("categories"));
+              book_details.setId(extras.getString("id"));
+              book_details.setUrl(extras.getString("url"));
         }
 
         layoutDisplay();
@@ -100,17 +100,17 @@ public class Details extends ActionBarActivity {
     public void layoutDisplay()
     {
         TextView bookTitleDisp            = (TextView)findViewById(R.id.book_title);
-        bookTitleDisp.setText(title + id);
+        bookTitleDisp.setText(book_details.getTitle().toString() + book_details.getId().toString());
         TextView bookAuthorDisp           = (TextView)findViewById(R.id.book_author);
-        bookAuthorDisp.setText(author + url);
+        bookAuthorDisp.setText(book_details.getAuthor().toString() + book_details.getUrl().toString());
         TextView bookLastChekbyDisp       = (TextView)findViewById(R.id.book_checkout);
-        bookLastChekbyDisp.setText(lastCheckedOut);
+        bookLastChekbyDisp.setText(book_details.getLastCheckedOut().toString());
         TextView bookLAstCheckDetailDisp  = (TextView)findViewById(R.id.book_checkout_details);
-        bookLAstCheckDetailDisp.setText(lastCheckedOutBy);
+        bookLAstCheckDetailDisp.setText(book_details.getLastCheckedOutBy().toString());
         TextView bookPublisherDisp        = (TextView)findViewById(R.id.book_publisher);
-        bookPublisherDisp.setText(publisher);
+        bookPublisherDisp.setText(book_details.getPublisher().toString());
         TextView bookTagsDisp             = (TextView)findViewById(R.id.book_tags);
-        bookTagsDisp.setText(categories);
+        bookTagsDisp.setText(book_details.getCategories().toString());
     }
 
 
@@ -118,7 +118,7 @@ public class Details extends ActionBarActivity {
     private Intent getDefaultIntent() {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT,"Book Details");
+        intent.putExtra(Intent.EXTRA_TEXT,book_details.toString());
         return intent;
     }
 
@@ -173,13 +173,6 @@ public class Details extends ActionBarActivity {
 
 
     private ShareActionProvider sharingAction;
-    private String              title,
-                                author,
-                                publisher,
-                                lastCheckedOut,
-                                lastCheckedOutBy,
-                                categories,
-                                id,
-                                url;
+    private BookObject          book_details   =new BookObject();
 }
 

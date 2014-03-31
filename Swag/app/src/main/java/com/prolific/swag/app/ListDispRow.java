@@ -6,11 +6,12 @@ package com.prolific.swag.app;
 public class ListDispRow {
     private String List_Disp_Tile_Row;
     private String List_Disp_Author_Row;
-
-    public ListDispRow(String title,String author)
+    private int    List_Disp_id_Row;
+    public ListDispRow(String title,String author,int idOfBook)
     {
         this.List_Disp_Tile_Row   = title;
         this.List_Disp_Author_Row = author;
+        this.List_Disp_id_Row     = idOfBook;
     }
 
 
@@ -29,4 +30,8 @@ public class ListDispRow {
     public void setList_Disp_Author_Row(String list_Disp_Author_Row) {
         List_Disp_Author_Row = list_Disp_Author_Row;
     }
+
+    public int  getList_Disp_id_Row(){return List_Disp_id_Row;}
+
+    public void setList_Disp_id_Row(int idOfBook){this.List_Disp_id_Row =idOfBook;}
 }

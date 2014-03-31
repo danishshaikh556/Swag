@@ -1,7 +1,6 @@
 package com.prolific.swag.app;
 
 import android.app.ListActivity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,13 +8,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -61,8 +58,8 @@ public class Books extends ListActivity implements AdapterView.OnItemClickListen
     }
     /* this method is fired when an item is clicked */
     public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-        TextView item = (TextView)v;
-        fireIntent(item.getText().toString());
+         int idOfBook = v.getId();
+        fireIntent(""+idOfBook);
 
     }
 
@@ -96,25 +93,19 @@ public class Books extends ListActivity implements AdapterView.OnItemClickListen
         // Can also pass it an android-created list item:
         //   android.R.layout.simple_list_item_1
 
-        setListAdapter(new ArrayAdapter<String>(this, R.layout.activity_books, toPass));
-        // obtain the ListView that was created by setListAdapter()
+        AdapterClass adapter =new AdapterClass(this,toPass);
+
+        setListAdapter(adapter);
+
+        //Get your ListView
         ListView myList = getListView();
-        // allow us to filter the list with keypresses
-        myList.setTextFilterEnabled(true);
-        // implement an onClick listener for when a user taps a color
+
+        //Set on Click Listener
         myList.setOnItemClickListener(this);
 
     }
 
-    /* display a Toast with message text. When Item in the LIst view is clicked*/
-    private void showMessage(CharSequence text) {
 
-        Context context = getApplicationContext();
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
-
-    }
 
 
 
@@ -130,18 +121,15 @@ public class Books extends ListActivity implements AdapterView.OnItemClickListen
             RetrofitAPICall getCall  = RetrofitAPICall.getInstance();
                             AllBooks =  getCall.getFromServerAllBooks();
 
-            //Compatible for ListView
-            int stringArraySize = AllBooks.keySet().size();
-                         toPass = new String[stringArraySize];
-
             //Create an itterator to itterate hasmap to display
             //Required Data in the ListView
              Iterator<String> itr = AllBooks.keySet().iterator();
 
-            int index =0;
             while(itr.hasNext())
             {
-                toPass[index++]=AllBooks.get(itr.next()).getId();
+                BookObject temp = AllBooks.get(itr.next());
+                int idtoPass    = Integer.parseInt(temp.getId().toString());
+                toPass.add(new ListDispRow(temp.getTitle().toString()+temp.getId().toString(), temp.getAuthor().toString()+temp.getUrl().toString(),idtoPass));
             }
 
         }
@@ -170,7 +158,7 @@ public class Books extends ListActivity implements AdapterView.OnItemClickListen
 
 
     public HashMap<String,BookObject> AllBooks = new HashMap<String, BookObject>();
-    public String[]          toPass            ;
+    public ArrayList<ListDispRow> toPass       = new ArrayList<ListDispRow>();
 
 
 }
