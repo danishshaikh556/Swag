@@ -27,7 +27,7 @@ public class Books extends ListActivity implements AdapterView.OnItemClickListen
         actionBar.setTitle("Books");
 
         ServerCalls performGet = new ServerCalls();
-                    performGet.execute("","","");
+                    performGet.execute("");
 
   }
 
@@ -52,7 +52,10 @@ public class Books extends ListActivity implements AdapterView.OnItemClickListen
             case R.id.action_add :  Intent i = new Intent(this, AddBooks.class);
                                     startActivity(i);
                                     return true;
-            case R.id.action_seed:  return true;
+            case R.id.action_seed:   toPass.clear();
+                                     ServerCalls performFetch = new ServerCalls();
+                                     performFetch.execute("");
+                                    return true;
             default              :  return super.onOptionsItemSelected(item);
         }
     }
@@ -129,7 +132,7 @@ public class Books extends ListActivity implements AdapterView.OnItemClickListen
             {
                 BookObject temp = AllBooks.get(itr.next());
                 int idtoPass    = Integer.parseInt(temp.getId().toString());
-                toPass.add(new ListDispRow(temp.getTitle().toString()+temp.getId().toString(), temp.getAuthor().toString()+temp.getUrl().toString(),idtoPass));
+                toPass.add(new ListDispRow(temp.getTitle().toString(), temp.getAuthor().toString(),idtoPass));
             }
 
         }

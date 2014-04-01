@@ -10,9 +10,14 @@ import java.util.HashMap;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 import retrofit.client.Response;
+import retrofit.http.Body;
 import retrofit.http.DELETE;
 import retrofit.http.GET;
+import retrofit.http.POST;
+import retrofit.http.PUT;
 import retrofit.http.Path;
+import retrofit.mime.TypedByteArray;
+import retrofit.mime.TypedInput;
 //Note this is a Singleton Design
 /**
  * Created by Danish556 on 3/30/14.
@@ -37,8 +42,20 @@ interface GETInterface {
             @Path("book_URL")      String book_URL,
             @Path("book_no_URL") String book_no_URL
     );
-}
+  }
 
+ //Interface for Post Requests
+ interface POSTInterface {
+        @POST("/books")
+        Response postData(@Body TypedInput in);
+  }
+
+  //Interface for Put Requests
+  interface PUTInterface {
+      @PUT("/books/{booktoPut_id}")
+      Response putData(@Path("booktoPut_id") String booktoPut_id,
+                            @Body                 TypedInput in);
+  }
 
 //Interface for DeleteRequests
 interface DeleteInterface{
@@ -138,6 +155,54 @@ interface DeleteInterface{
         return AllBooks;
     }
 
+    //Used to POST Books to server
+    public String postBooksToServer(BookObject bookToPost)throws Exception
+    {
+        // Create a very simple REST adapter which points the Your Site API  endpoint.
+        RestAdapter restAdapter = new RestAdapter.Builder()
+                .setEndpoint(API_URL)
+                .build();
+
+        //Creating a raw json script
+        String json = "{\"author\":\"" + bookToPost.getAuthor().toString() + "\", \"categories\": \"" + bookToPost.getCategories().toString() + "\",\"lastCheckedOutBy\": \"" + bookToPost.getLastCheckedOutBy().toString()+ "\",\"publisher\": \"" + bookToPost.getPublisher() + "\",\"title\": \"" + bookToPost.getTitle() + "\"}";
+
+        //Uncomment this only when using a raw json obj
+        TypedInput in = new TypedByteArray("application/json", json.getBytes("UTF-8"));
+
+        // Create an instance of our PostInterface API interface.
+        POSTInterface toPost = restAdapter.create(POSTInterface.class);
+        // POST to  Library.
+        Response contributors = toPost.postData(in);
+
+        return contributors.toString();
+
+
+    }
+
+    //USed to Put edit book requests to server
+    public String putOnServer(String id,String time,String name)throws Exception
+    {
+        // Create a very simple REST adapter which points the Your Site API  endpoint.
+        RestAdapter restAdapter = new RestAdapter.Builder()
+                .setEndpoint(API_URL)
+                .build();
+
+        String toGive ="@"+ name + time;
+        //Creating a raw json script
+        String json = "{\"lastCheckedOutBy\": \"" + toGive + "\"}";
+
+        //Uncomment this only when using a raw json obj
+        TypedInput in = new TypedByteArray("application/json", json.getBytes("UTF-8"));
+
+        // Create an instance of our PutInterface API interface.
+        PUTInterface toPost = restAdapter.create(PUTInterface.class);
+        // POST to  Library.
+        Response contributors = toPost.putData(id,in);
+
+        return contributors.toString();
+
+
+    }
 
     //Use this method to get a single book Using Retrofit@GET API
     public String deleteSingleBookFromServer(String bookToDelete) throws Exception {
@@ -166,7 +231,7 @@ interface DeleteInterface{
 
         // Create an instance of our DeleteInterface API interface.
         DeleteInterface toDelete = restAdapter.create(DeleteInterface.class);
-        // Delete from Library.
+        // Delete from Library.Note to remove extra /
         Response contributors = toDelete.deleteBook("clean","");
 
         return contributors.toString();

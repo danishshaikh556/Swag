@@ -39,7 +39,7 @@ public class AddBooks extends ActionBarActivity {
                        if(view.getId() == R.id.submit)
                        {
                            ServerCalls PostToServer =new ServerCalls();
-                                       PostToServer.execute("","","");
+                                       PostToServer.execute("");
                        }
 
                    }
@@ -91,7 +91,7 @@ public class AddBooks extends ActionBarActivity {
     public void makeToast(String toast){
     //Show user Confirmation
         Context context = getApplicationContext();
-        Toast.makeText(context,"Book Made:-"+ toast , Toast.LENGTH_SHORT).show();
+        Toast.makeText(context,"Book Added:-"+ toast , Toast.LENGTH_SHORT).show();
  }
 
     ///Server INteraction
@@ -108,9 +108,9 @@ public class AddBooks extends ActionBarActivity {
             BookObject bookToPostToServer = getPostRequestBody();
 
             //Make a POST RequestTo the server
-
-
-
+            try{
+            String reveived               = toPost.postBooksToServer(bookToPostToServer);
+            }catch(Exception e){}
             return bookToPostToServer.toString();
         }
 

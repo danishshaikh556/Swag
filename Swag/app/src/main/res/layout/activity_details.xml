@@ -43,7 +43,6 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Last Checked Out:"
-        android:id="@+id/book_checkout"
         android:layout_gravity="center_horizontal" />
 
     <TextView

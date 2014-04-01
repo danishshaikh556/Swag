@@ -6,7 +6,9 @@ package com.prolific.swag.app;
  * Created by Danish556 on 3/27/14.
  */
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -62,7 +64,7 @@ public class Details extends ActionBarActivity {
 
                     //Upadte LastChecked by method
                     ServerCalls toPut =new ServerCalls();
-                                toPut.execute("","","");
+                                toPut.execute(new String[]{""});
 
                 }
 
@@ -92,6 +94,30 @@ public class Details extends ActionBarActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+        int id_item = item.getItemId();
+        //Trigger the Delete Book Command
+        if(id_item == R.id.action_delete)
+        {
+           //Dialog Box to confirm delete
+            AlertDialog about = new AlertDialog.Builder(this).create();
+            about.setTitle("---------DELETE---------");
+            about.setMessage("Are You Sure you Want To Delete this Book!");
+            about.setButton("YES", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    // here you can add functions
+                    ServerCalls server = new ServerCalls();
+                                server.execute(new String[]{"delete"});
+                }
+            });
+            about.setButton2("NO", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    // here you can add functions
+                }
+            });
+            about.show();
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -100,17 +126,15 @@ public class Details extends ActionBarActivity {
     public void layoutDisplay()
     {
         TextView bookTitleDisp            = (TextView)findViewById(R.id.book_title);
-        bookTitleDisp.setText(book_details.getTitle().toString() + book_details.getId().toString());
+        bookTitleDisp.setText("Title :" + book_details.getTitle().toString());
         TextView bookAuthorDisp           = (TextView)findViewById(R.id.book_author);
-        bookAuthorDisp.setText(book_details.getAuthor().toString() + book_details.getUrl().toString());
-        TextView bookLastChekbyDisp       = (TextView)findViewById(R.id.book_checkout);
-        bookLastChekbyDisp.setText(book_details.getLastCheckedOut().toString());
+        bookAuthorDisp.setText("Author :" + book_details.getAuthor().toString());
         TextView bookLAstCheckDetailDisp  = (TextView)findViewById(R.id.book_checkout_details);
         bookLAstCheckDetailDisp.setText(book_details.getLastCheckedOutBy().toString());
         TextView bookPublisherDisp        = (TextView)findViewById(R.id.book_publisher);
-        bookPublisherDisp.setText(book_details.getPublisher().toString());
+        bookPublisherDisp.setText("Publisher :" + book_details.getPublisher().toString());
         TextView bookTagsDisp             = (TextView)findViewById(R.id.book_tags);
-        bookTagsDisp.setText(book_details.getCategories().toString());
+        bookTagsDisp.setText("Tags :"  + book_details.getCategories().toString());
     }
 
 
@@ -151,14 +175,24 @@ public class Details extends ActionBarActivity {
             //Get Instance of call
            RetrofitAPICall toUpdate =RetrofitAPICall.getInstance();
 
-            //Get Time to PUT request to server
-            String time             = getTime();
+            String toReturn="";
 
-            //Make a put RequestTo the server
+            try{
+            //Make delete Single book call to server
+            if(params[0].equals("delete"))
+            {
+                 toReturn = toUpdate.deleteSingleBookFromServer(book_details.getId().toString());
+
+            }else{
+               //Make a put RequestTo the server
+                //Get Time to PUT request to server
+                 toReturn           = getTime();
+                 String data        =toUpdate.putOnServer(book_details.getId().toString(),toReturn,"Zidane");
+            }
+            }catch(Exception e){e.printStackTrace();}
 
 
-
-                   return time;
+                   return toReturn;
        }
 
         @Override
@@ -166,7 +200,9 @@ public class Details extends ActionBarActivity {
 
             Context context = getApplicationContext();
             //Toast for User Update
-            Toast.makeText(context, "Update at :" + result, Toast.LENGTH_SHORT).show();}
+            Toast.makeText(context, "Update at :" + result, Toast.LENGTH_SHORT).show();
+            finish();
+         }
      }
 
 

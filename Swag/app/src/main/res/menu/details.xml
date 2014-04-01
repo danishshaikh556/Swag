@@ -1,6 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:yourapp="http://schemas.android.com/apk/res-auto" >
-     <!-- Line 2 is nexessary because the atributes do not exist on android frameworks of older devices-->
+     <!-- Line 2 is nexessary because the atributes do not exist on android frameworks of older devices
+          hence I have used the Action Bar Sherlock the ApI which lets the new Action bar features run on older frameworks
+          hence you need to specify the yourapp and call those feature specifically-->
 
 
     <!-- Share -->
@@ -9,5 +11,9 @@
         android:title              ="Share"
         yourapp:showAsAction       ="ifRoom"
         yourapp:actionProviderClass="android.support.v7.widget.ShareActionProvider"/>
+    <!-- Share -->
+    <item android:id               ="@+id/action_delete"
+        android:title              ="Delete"
+        yourapp:showAsAction       ="ifRoom"/>
 
 </menu>
