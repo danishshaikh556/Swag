@@ -31,8 +31,6 @@ public class Books extends ListActivity implements AdapterView.OnItemClickListen
 
   }
 
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -40,6 +38,7 @@ public class Books extends ListActivity implements AdapterView.OnItemClickListen
         getMenuInflater().inflate(R.menu.books, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -49,9 +48,9 @@ public class Books extends ListActivity implements AdapterView.OnItemClickListen
         int id = item.getItemId();
 
         switch(id){
-            case R.id.action_add :  Intent i = new Intent(this, AddBooks.class);
-                                    startActivity(i);
-                                    return true;
+            case R.id.action_add :   Intent i = new Intent(this, AddBooks.class);
+                                     startActivity(i);
+                                     return true;
             case R.id.action_seed:   toPass.clear();
                                      ServerCalls performFetch = new ServerCalls();
                                      performFetch.execute("");
@@ -109,7 +108,20 @@ public class Books extends ListActivity implements AdapterView.OnItemClickListen
     }
 
 
+    public void HashMapToArrayList()
+    {
+        //Create an itterator to itterate hasmap to display
+        //Required Data in the ListView
+        Iterator<String> itr = AllBooks.keySet().iterator();
 
+        while(itr.hasNext())
+        {
+            BookObject temp = AllBooks.get(itr.next());
+            int idtoPass    = Integer.parseInt(temp.getId().toString());
+            toPass.add(new ListDispRow(temp.getTitle().toString(), temp.getAuthor().toString(),idtoPass));
+        }
+
+    }
 
 
 
@@ -124,18 +136,10 @@ public class Books extends ListActivity implements AdapterView.OnItemClickListen
             RetrofitAPICall getCall  = RetrofitAPICall.getInstance();
                             AllBooks =  getCall.getFromServerAllBooks();
 
-            //Create an itterator to itterate hasmap to display
-            //Required Data in the ListView
-             Iterator<String> itr = AllBooks.keySet().iterator();
-
-            while(itr.hasNext())
-            {
-                BookObject temp = AllBooks.get(itr.next());
-                int idtoPass    = Integer.parseInt(temp.getId().toString());
-                toPass.add(new ListDispRow(temp.getTitle().toString(), temp.getAuthor().toString(),idtoPass));
-            }
+                           HashMapToArrayList();
 
         }
+
 
 
         @Override

@@ -174,13 +174,14 @@ interface DeleteInterface{
         // POST to  Library.
         Response contributors = toPost.postData(in);
 
+
         return contributors.toString();
 
 
     }
 
     //USed to Put edit book requests to server
-    public String putOnServer(String id,String time,String name)throws Exception
+    public String putOnServer(String idOfPut,String time,String name)throws Exception
     {
         // Create a very simple REST adapter which points the Your Site API  endpoint.
         RestAdapter restAdapter = new RestAdapter.Builder()
@@ -197,7 +198,12 @@ interface DeleteInterface{
         // Create an instance of our PutInterface API interface.
         PUTInterface toPost = restAdapter.create(PUTInterface.class);
         // POST to  Library.
-        Response contributors = toPost.putData(id,in);
+        Response contributors = toPost.putData(idOfPut,in);
+
+        //Update Locally
+        BookObject temp_book =AllBooks.get(idOfPut);
+                   temp_book.setLastCheckedOutBy(toGive);
+                   AllBooks.put(idOfPut,temp_book);
 
         return contributors.toString();
 
@@ -217,6 +223,8 @@ interface DeleteInterface{
         // Delete from Library.
         Response contributors = toDelete.deleteBook("books", bookToDelete);
 
+        //Delete Book Locally
+        AllBooks.remove(bookToDelete);
         return contributors.toString();
     }
 
@@ -236,6 +244,13 @@ interface DeleteInterface{
 
         return contributors.toString();
     }
+
+    //Used to remove entries or update them locally on add ,deletes etc.
+    public HashMap<String,BookObject>getHashmap()
+    {
+        return  AllBooks;
+    }
+
 
     private HashMap<String,BookObject> AllBooks = new HashMap<String, BookObject>();
 }

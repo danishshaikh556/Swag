@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:background="#505455"
     >
 
     <TextView
@@ -10,7 +11,7 @@
         android:layout_height="wrap_content"
         android:textSize="30sp"
         android:paddingLeft="5dp"
-        android:textColor="#FF090E"></TextView>
+        android:textColor="#f3efcf"></TextView>
 
 
 
@@ -21,7 +22,7 @@
         android:layout_below="@+id/label"
         android:textSize="12sp"
         android:paddingLeft="5dp"
-        android:textColor="#FF977F"
+        android:textColor="#b2a9a4"
 
         >
     </TextView>

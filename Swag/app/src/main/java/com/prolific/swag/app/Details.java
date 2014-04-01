@@ -102,16 +102,16 @@ public class Details extends ActionBarActivity {
             AlertDialog about = new AlertDialog.Builder(this).create();
             about.setTitle("---------DELETE---------");
             about.setMessage("Are You Sure you Want To Delete this Book!");
-            about.setButton("YES", new DialogInterface.OnClickListener() {
+            about.setButton("NO", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    // here you can add functions
+                }
+            });
+            about.setButton2("YES", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     // here you can add functions
                     ServerCalls server = new ServerCalls();
-                                server.execute(new String[]{"delete"});
-                }
-            });
-            about.setButton2("NO", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    // here you can add functions
+                    server.execute(new String[]{"delete"});
                 }
             });
             about.show();
@@ -182,7 +182,7 @@ public class Details extends ActionBarActivity {
             if(params[0].equals("delete"))
             {
                  toReturn = toUpdate.deleteSingleBookFromServer(book_details.getId().toString());
-
+                 toReturn ="Deleted" +book_details.toString();
             }else{
                //Make a put RequestTo the server
                 //Get Time to PUT request to server

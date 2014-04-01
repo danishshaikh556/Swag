@@ -2,6 +2,7 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="#505455"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <EditText
@@ -9,23 +10,27 @@
         android:layout_height="wrap_content"
         android:hint="Book Title"
         android:id="@+id/addbookTitle"
+        android:textColor="#f3efcf"
         android:inputType="text"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Author"
+        android:textColor="#f3efcf"
         android:id="@+id/addauthor"
         android:inputType="text"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Publisher"
+        android:textColor="#f3efcf"
         android:id="@+id/addpublisher"
         android:inputType="text"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Categories"
+        android:textColor="#f3efcf"
         android:id="@+id/addcategories"
         android:inputType="text"/>
 
@@ -33,6 +38,7 @@
         android:layout_width="346dp"
         android:layout_height="wrap_content"
         android:text="Submit"
+        android:textColor="#f3efcf"
         android:id="@+id/submit"
         android:layout_gravity="center_horizontal" />
 

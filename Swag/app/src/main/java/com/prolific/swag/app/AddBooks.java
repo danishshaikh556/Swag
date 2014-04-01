@@ -2,6 +2,7 @@ package com.prolific.swag.app;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -65,7 +66,10 @@ public class AddBooks extends ActionBarActivity {
 
         switch(id){
 
-            case R.id.action_done :  finish();
+            case R.id.action_done :  Context context = getApplicationContext();
+                                     Intent i = new Intent(context, Books.class);
+                                        startActivity(i);
+                                     finish();
                                      return true;
             default               :  return super.onOptionsItemSelected(item);
         }
@@ -115,7 +119,12 @@ public class AddBooks extends ActionBarActivity {
         }
 
         @Override
-        protected void onPostExecute(String result) {makeToast(result);finish();}
+        protected void onPostExecute(String result) {
+            makeToast(result);
+            Context context = getApplicationContext();
+            Intent i = new Intent(context, Books.class);
+            startActivity(i);
+            finish();}
     }
 
 
