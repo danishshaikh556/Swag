@@ -91,9 +91,7 @@ public class Books extends ListActivity implements AdapterView.OnItemClickListen
     {
         // add a ListView to fill the entire screen of the
         // ListActivity, and pass into it an ArrayAdapter
-        // that manages the array of list items.
-        // Can also pass it an android-created list item:
-        //   android.R.layout.simple_list_item_1
+        
 
         AdapterClass adapter =new AdapterClass(this,toPass);
 
