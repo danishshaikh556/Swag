@@ -1,6 +1,7 @@
 package com.prolific.swag.app;
 
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -25,6 +26,8 @@ public class Books extends ListActivity implements AdapterView.OnItemClickListen
         //Displaying the title of the action Bar as "Books"
         android.app.ActionBar actionBar = getActionBar();
         actionBar.setTitle("Books");
+
+
 
         ServerCalls performGet = new ServerCalls();
                     performGet.execute("");
@@ -131,6 +134,9 @@ public class Books extends ListActivity implements AdapterView.OnItemClickListen
 
     private class ServerCalls extends AsyncTask<String, String, String> {
 
+        //Progress bar
+        ProgressDialog progressDialog;
+
         public void  doGet() throws Exception, JSONException {
 
             RetrofitAPICall getCall  = RetrofitAPICall.getInstance();
@@ -141,7 +147,11 @@ public class Books extends ListActivity implements AdapterView.OnItemClickListen
         }
 
 
-
+        @Override
+        protected void onPreExecute()
+        {
+            progressDialog= ProgressDialog.show(Books.this, "Loading Data From Servers","Wait", true);
+        }
         @Override
         protected String doInBackground(String... params)  {
             String toReturn ="";
@@ -155,8 +165,12 @@ public class Books extends ListActivity implements AdapterView.OnItemClickListen
 
         @Override
         protected void onPostExecute(String result) {
+
+                //Inflate ListView
                 fillListView();
-          }
+                //Hide Progress Bar
+                progressDialog.dismiss();
+        }
 
      }
 
@@ -166,6 +180,7 @@ public class Books extends ListActivity implements AdapterView.OnItemClickListen
 
     public HashMap<String,BookObject> AllBooks = new HashMap<String, BookObject>();
     public ArrayList<ListDispRow> toPass       = new ArrayList<ListDispRow>();
+
 
 
 }
