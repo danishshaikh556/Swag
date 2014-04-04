@@ -181,12 +181,5 @@ public class Books extends ListActivity implements AdapterView.OnItemClickListen
 
 
 
-<<<<<<< HEAD
-}
-=======
 
 }
-
-
-
->>>>>>> 05e003bec476d4fa92d030d2a09d0da13575e9d3
